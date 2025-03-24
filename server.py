@@ -1,4 +1,4 @@
-from flask import Flask, request, send_file
+from flask import Flask, send_from_directory
 import logging
 from datetime import datetime
 
@@ -21,7 +21,12 @@ def beacon():
     print(log_entry)  # コンソールにも表示
 
     # 透明な1x1ピクセルの画像を返す
-    return send_file("beacon.png", mimetype="image/png")
+    return send_from_directory('static', 'beacon.png')
+
+
+@app.route("/")
+def index():
+    return send_from_directory('', 'index.html')
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
